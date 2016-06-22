@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<!--html>
+  <head>
+    <title>Vega Scaffold</title>
+    <script src="https://vega.github.io/vega-editor/vendor/d3.min.js"></script>
+    <script src="https://vega.github.io/vega-editor/vendor/d3.geo.projection.min.js"></script>
+    <script src="https://vega.github.io/vega-editor/vendor/topojson.js"></script>
+    <script src="https://vega.github.io/vega-editor/vendor/d3.layout.cloud.js"></script>
+    <script src="https://vega.github.io/vega/vega.min.js"></script>
+    
+  </head>
+  <body>
+    <div id="vis"></div>
+  </body>
+<script type="text/javascript">
+// parse a spec and create a visualization view
+function parse(spec) {
+  vg.parse.spec(spec, function(error, chart) { chart({el:"#vis"}).update(); });
+}
+parse("examples/dimpvis.json");
+</script>
+</html-->
+
+
+
+
+
+<html>
+  <head>
+    <title>Vega Scaffold</title>
+    <script src="vegaEditorJS/d3.geo.projection.min.js"></script>
+    <script src="vegaEditorJS/d3.layout.cloud.js"></script>
+    <script src="vegaEditorJS/d3.min.js"></script>
+    <script src="vegaEditorJS/topojson.js"></script>
+    <script src="vegaEditorJS/vega.min.js"></script>
+    
+  </head>
+  <body>
+    <div id="vis"></div>
+  </body>
+<script type="text/javascript">
+// parse a spec and create a visualization view
+function parse(spec) {
+  vg.parse.spec(spec, function(error, chart) { chart({el:"#vis"}).update(); });
+}
+parse("examples/parallel_coords.json");
+</script>
+</html>
+
+
+<!-------------------------------------
+
+{
+  "width": 700,
+  "height": 400,
+
+
+  "data": [ // can only be objects, there are 2 below
+
+    // there can be different property combinations 
+    // both combinations below are accepted by data's schema
+
+
+    // obj1 comb: name, url, transform
+    {
+      "name": "cars",
+      "url": "data/cars.json",
+
+      // filterTransform used within Data section
+      // transform: an object must have type:fitler and test:string
+      "transform": [{
+            
+            "type": "filter", 
+        
+            "test": "datum.Horsepower && datum.Miles_per_Gallon"
+        }]
+    },
+
+    // obj2 comb: name:string, values:array
+    {
+      "name": "fields",
+      "values": [
+        "Cylinders",
+        "Displacement",
+        "Weight_in_lbs",
+        "Horsepower",
+        "Acceleration",
+        "Miles_per_Gallon",
+        "Year"
+      ]
+    }
+  ],
+
+
+
+
+
+  "scales": [ // obj, scale func
+
+    // scale obj1
+    {
+      // name is required
+      "name": "ord", // naming scale
+
+      // type is required, select from a list
+      "type": "ordinal",
+
+      // can select from a list, width is one option
+      "range": "width", 
+
+      // 2 options: one is boolean 
+      "points": true,
+
+      // one of many options: string array
+      "domain": ["Cylinders", "Displacement", "Weight_in_lbs", "Horsepower",
+                 "Acceleration", "Miles_per_Gallon", "Year"]
+    },
+
+    // scale obj2 
+    {
+      "name": "Cylinders", 
+      "type": "linear",
+      "range": "height", 
+      "zero": false, 
+      "nice": true,
+
+      // ?? domain:obj, items array using data 
+      "domain": {"data": "cars", "field": "Cylinders"}
+    },
+
+    // scale obj3
+    {
+      "name": "Displacement", 
+      "type": "linear",
+      "range": "height", 
+      "zero": false, 
+      "nice": true,
+      "domain": {"data": "cars", "field": "Displacement"}
+    },
+
+    // scale obj4
+    {
+      "name": "Weight_in_lbs", 
+      "type": "linear",
+      "range": "height", 
+      "zero": false, 
+      "nice": true,
+      "domain": {"data": "cars", "field": "Weight_in_lbs"}
+    },
+
+
+    // scale obj5
+    {
+      "name": "Horsepower", 
+      "type": "linear",
+      "range": "height", 
+      "zero": false, 
+      "nice": true,
+      "domain": {"data": "cars", "field": "Horsepower"}
+    },
+
+
+    // scale obj6
+    {
+      "name": "Acceleration", 
+      "type": "linear",
+      "range": "height", 
+      "zero": false, 
+      "nice": true,
+      "domain": {"data": "cars", "field": "Acceleration"}
+    },
+
+
+    // scale obj7
+    {
+      "name": "Miles_per_Gallon", 
+      "type": "linear",
+      "range": "height", 
+      "zero": false, 
+      "nice": true,
+      "domain": {"data": "cars", "field": "Miles_per_Gallon"}
+    },
+
+
+    // scale obj8
+    {
+      "name": "Year", 
+      "type": "linear",
+      "range": "height", 
+      "zero": false, 
+      "nice": true,
+      "domain": {"data": "cars", "field": "Year"}
+    }
+  ],
+
+
+  "axes": [ // axes for each scale
+    {
+      "type": "y",
+      "scale": "Cylinders",
+      "offset": {"scale": "ord","value": "Cylinders"}
+    },
+    {
+      "type": "y",
+      "scale": "Displacement",
+      // offset: obj, scale:string, value:string or number
+      "offset": {"scale": "ord","value": "Displacement"}
+    },
+    {
+      "type": "y",
+      "scale": "Weight_in_lbs",
+      "offset": {"scale": "ord","value": "Weight_in_lbs"}
+    },
+    {
+      "type": "y",
+      "scale": "Horsepower",
+      "offset": {"scale": "ord","value": "Horsepower"}
+    },
+    {
+      "type": "y",
+      "scale": "Acceleration",
+      "offset": {"scale": "ord","value": "Acceleration"}
+    },
+    {
+      "type": "y",
+      "scale": "Miles_per_Gallon",
+      "offset": {"scale": "ord","value": "Miles_per_Gallon"}
+    },
+    {
+      "type": "y",
+      "scale": "Year",
+      "offset": {"scale": "ord","value": "Year"}
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "from": {"data": "cars"},
+      "marks": [
+        {
+          "type": "line",
+          "from": {"data": "fields"},
+          "properties": {
+            "enter": {
+              "x": {"scale": "ord", "field": "data"},
+              "y": {
+                "scale": {"datum": "data"},
+                "field": {"parent": {"datum": "data"}}
+              },
+              "stroke": {"value": "steelblue"},
+              "strokeWidth": {"value": 1},
+              "strokeOpacity": {"value": 0.3}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "from": {"data": "fields"},
+      "properties": {
+        "enter": {
+          "x": {"scale": "ord", "field": "data", "offset":-8},
+          "y": {"field": {"group": "height"}, "offset": 6},
+          "fontWeight": {"value": "bold"},
+          "fill": {"value": "black"},
+          "text": {"field": "data"},
+          "align": {"value": "right"},
+          "baseline": {"value": "top"}
+        }
+      }
+    }
+  ]
+}
+
+---------------------------------------->
